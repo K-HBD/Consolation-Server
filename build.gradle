@@ -23,7 +23,6 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.springframework.boot:spring-boot-starter-web' // web
-	implementation 'org.python:jython-slim:2.7.2'
 }
 
 tasks.named('test') {
