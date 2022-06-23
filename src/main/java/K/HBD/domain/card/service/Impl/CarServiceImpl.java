@@ -8,7 +8,13 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class CarServiceImpl implements CardService {
     @Override
-    public CardResponseDto createCard(MultipartFile multipartFile, String name) {
+    public CardResponseDto responseCard(MultipartFile multipartFile, String name) {
+        CardResponseDto card = createCard(multipartFile, name);
+        return card;
+    }
+
+    private CardResponseDto createCard(MultipartFile multipartFile, String name) {
+        //logic...
         return null;
     }
 }
