@@ -1,4 +1,4 @@
-package K.HBD.global.enumType;
+package K.HBD.domain.enumType;
 
 public enum Emotion {
     ANGRY, // 분노
