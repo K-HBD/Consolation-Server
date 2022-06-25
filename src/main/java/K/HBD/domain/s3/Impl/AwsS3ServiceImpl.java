@@ -29,20 +29,15 @@ public class AwsS3ServiceImpl implements AwsS3Service {
     @Override
     public String uploadFileFromS3(MultipartFile file) {
         String fileName = "";
+        multipartFileIsNullCheck(file);
 
-        try {
-            multipartFileIsNullCheck(file);
+        String imageName = file.getOriginalFilename();
 
-            String imageName = file.getOriginalFilename();
+        fileName = createFileName(imageName);
 
-            fileName = createFileName(imageName);
+        ObjectMetadata om = setObjectMetadata(file);
 
-            ObjectMetadata om = setObjectMetadata(file);
-
-            putS3(file, fileName, om);
-        } catch (NullPointerException e) {
-            return null; // 로직 실행 도중 NPE가 발생할 경우 file의 이름을 null로 처리하겠다는 의미
-        }
+        putS3(file, fileName, om);
 
         return fileName;
     }
