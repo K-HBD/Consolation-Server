@@ -1,4 +1,4 @@
-package K.HBD.global.config;
+package K.HBD.global.config.web;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
