@@ -6,4 +6,5 @@ import K.HBD.domain.sentence.Sentence;
 
 public interface SentenceCustomRepository {
     Sentence findSentenceByUseLetter(Use use, Emotion emotion);
+    void updateSentenceByAllUseLetter(Use use, Emotion emotion);
 }
