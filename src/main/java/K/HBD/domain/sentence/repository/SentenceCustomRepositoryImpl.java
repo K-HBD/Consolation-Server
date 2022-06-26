@@ -6,9 +6,11 @@ import K.HBD.domain.sentence.Sentence;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.querydsl.jpa.impl.JPAUpdateClause;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.LockModeType;
 import java.util.List;
 
 import static K.HBD.domain.sentence.QSentence.sentence;
@@ -39,6 +41,7 @@ public class SentenceCustomRepositoryImpl implements SentenceCustomRepository {
     }
 
     @Modifying(clearAutomatically = true)
+    @Lock(value = LockModeType.PESSIMISTIC_WRITE)
     public void updateSentenceByAllUseLetter(Use use, Emotion emotion) {
 
         jpaUpdateClause
