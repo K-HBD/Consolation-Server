@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
@@ -14,6 +15,7 @@ import javax.persistence.*;
 @Builder
 @Getter
 @Entity
+@DynamicUpdate
 public class Sentence {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,4 +31,9 @@ public class Sentence {
     @Column(name = "emotion", nullable = false)
     @Enumerated(EnumType.STRING)
     private Emotion emotion;
+
+    public void update(Use used_letter) {
+        this.used_letter = used_letter;
+    }
+
 }
