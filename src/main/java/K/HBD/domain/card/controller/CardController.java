@@ -14,7 +14,7 @@ public class CardController {
 
     private final CardService cardService;
 
-    @PostMapping()
+    @GetMapping()
     public ResponseEntity<CardResponseDto> takeCard(@RequestBody CardDto card) {
         return ResponseEntity.ok(cardService.responseCard(card));
     }
