@@ -7,6 +7,7 @@ import K.HBD.domain.enumType.Emotion;
 import K.HBD.domain.sentence.Sentence;
 import K.HBD.domain.sentence.service.SentenceService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -16,7 +17,9 @@ import javax.transaction.Transactional;
 public class CardServiceImpl implements CardService {
 
     private final SentenceService sentenceService;
-    private final static String BASE_URI = "https://consolationbucket.s3.ap-northeast-2.amazonaws.com/"; // s3에 저장되는 모든 파일의 기본 base url
+
+    @Value("${cloud.aws.s3.url}")
+    private final String BASE_URI; // s3에 저장되는 모든 파일의 기본 base url
 
     @Override
     @Transactional
