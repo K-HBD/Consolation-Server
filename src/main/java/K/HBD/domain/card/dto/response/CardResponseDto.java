@@ -1,4 +1,4 @@
-package K.HBD.domain.card.dto;
+package K.HBD.domain.card.dto.response;
 
 import K.HBD.domain.enumType.Emotion;
 import lombok.AllArgsConstructor;
