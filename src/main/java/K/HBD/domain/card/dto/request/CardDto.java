@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @Getter
 public class CardDto {
-    private String file;
+    private String image;
     private String name;
 }

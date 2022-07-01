@@ -27,24 +27,24 @@ public class AwsS3ServiceImpl implements AwsS3Service {
     private final AmazonS3 amazonS3;
 
     @Override
-    public String uploadFileFromS3(MultipartFile file) {
-        String fileName = "";
-        multipartFileIsNullCheck(file);
+    public String uploadFileFromS3(MultipartFile image) {
+        String imageName = "";
+        multipartFileIsNullCheck(image);
 
-        String imageName = file.getOriginalFilename();
+        String imageOriginalName = image.getOriginalFilename();
 
-        fileName = createFileName(imageName);
+        imageName = createFileName(imageOriginalName);
 
-        ObjectMetadata om = setObjectMetadata(file);
+        ObjectMetadata om = setObjectMetadata(image);
 
-        putS3(file, fileName, om);
+        putS3(image, imageName, om);
 
-        return fileName;
+        return imageName;
     }
 
-    private void putS3(MultipartFile file, String fileName, ObjectMetadata om) {
-        try (InputStream inputStream = file.getInputStream()) {
-            amazonS3.putObject(new PutObjectRequest(bucket, fileName, inputStream, om)
+    private void putS3(MultipartFile image, String imageName, ObjectMetadata om) {
+        try (InputStream inputStream = image.getInputStream()) {
+            amazonS3.putObject(new PutObjectRequest(bucket, imageName, inputStream, om)
                     .withCannedAcl(CannedAccessControlList.PublicRead));
         } catch (IOException e) {
             throw new CustomException(FAILED_SAVE_IMAGE);
@@ -57,22 +57,22 @@ public class AwsS3ServiceImpl implements AwsS3Service {
         }
     }
 
-    private String createFileName(String fileName) {
-        return UUID.randomUUID().toString().concat(getFileExtension(fileName));
+    private String createFileName(String imageName) {
+        return UUID.randomUUID().toString().concat(getFileExtension(imageName));
     }
 
-    private String getFileExtension(String fileName) {
+    private String getFileExtension(String imageName) {
         try {
-            return fileName.substring(fileName.lastIndexOf("."));
+            return imageName.substring(imageName.lastIndexOf("."));
         } catch (StringIndexOutOfBoundsException e) {
             throw new CustomException(OUT_OF_STRING_INDEX);
         }
     }
 
-    private ObjectMetadata setObjectMetadata(MultipartFile file) {
+    private ObjectMetadata setObjectMetadata(MultipartFile image) {
         ObjectMetadata om = new ObjectMetadata();
-        om.setContentLength(file.getSize());
-        om.setContentType(file.getContentType());
+        om.setContentLength(image.getSize());
+        om.setContentType(image.getContentType());
 
         return om;
     }
