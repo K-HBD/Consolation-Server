@@ -1,9 +1,12 @@
 package K.HBD.domain.s3.Impl;
 
+import K.HBD.domain.card.dto.request.ImageDto;
 import K.HBD.domain.s3.AwsS3Service;
 import K.HBD.global.exception.CustomException;
+import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +30,7 @@ public class AwsS3ServiceImpl implements AwsS3Service {
     private final AmazonS3 amazonS3;
 
     @Override
+
     public String uploadFileFromS3(MultipartFile image) {
         String imageName = "";
         multipartFileIsNullCheck(image);
@@ -48,6 +52,8 @@ public class AwsS3ServiceImpl implements AwsS3Service {
                     .withCannedAcl(CannedAccessControlList.PublicRead));
         } catch (IOException e) {
             throw new CustomException(FAILED_SAVE_IMAGE);
+        } catch (AmazonServiceException e) {
+            throw new CustomException(AMAZONS_SERVICE_EXCEPTION);
         }
     }
 
