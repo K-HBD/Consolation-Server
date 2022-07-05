@@ -1,7 +1,7 @@
 package K.HBD.domain.card.controller;
 
-import K.HBD.domain.card.dto.CardDto;
-import K.HBD.domain.card.dto.CardResponseDto;
+import K.HBD.domain.card.dto.request.CardDto;
+import K.HBD.domain.card.dto.response.CardResponseDto;
 import K.HBD.domain.card.service.CardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
