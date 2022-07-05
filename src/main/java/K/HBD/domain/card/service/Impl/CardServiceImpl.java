@@ -30,11 +30,11 @@ public class CardServiceImpl implements CardService {
     @Override
     @Transactional
     public CardResponseDto responseCard(CardDto card) {
-        EmotionDto emotion = getEmotionFromModel(card.getFile()); // AI 모델 서버에서 가져올 임시 감정
+        EmotionDto emotion = getEmotionFromModel(card.getImage()); // AI 모델 서버에서 가져올 임시 감정
 
         return CardResponseDto.builder()
                 .sentence(sentenceRepository.findLetterByEmotion(emotion.getEmotion()))
-                .image(BASE_URI + card.getFile())
+                .imageUrl(BASE_URI + card.getImage())
                 .name(card.getName())
                 .emotion(emotion.getEmotion())
                 .build();
@@ -43,7 +43,7 @@ public class CardServiceImpl implements CardService {
     private EmotionDto getEmotionFromModel(String imageUrl) {
         return WebClient.create()
                 .post()
-                .uri("http://127.0.0.1:8082/api/model")
+                .uri("http://10.120.72.237:8082/api/model")
                 .accept(MediaType.APPLICATION_JSON)
                 .body(Mono.just(imageUrl), ImageDto.class)
                 .retrieve()

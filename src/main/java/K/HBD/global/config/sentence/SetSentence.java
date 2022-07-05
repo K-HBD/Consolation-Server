@@ -3,9 +3,8 @@ package K.HBD.global.config.sentence;
 
 import K.HBD.domain.enumType.Emotion;
 import K.HBD.domain.sentence.Sentence;
-import K.HBD.domain.sentence.dto.SentenceDto;
+import K.HBD.domain.sentence.dto.request.SentenceDto;
 import K.HBD.domain.sentence.repository.SentenceRepository;
-import K.HBD.domain.sentence.service.SentenceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -27,11 +26,6 @@ public class SetSentence {
                 "모든 나무의 열매들은 온전히 무르익기까지 오랜 시간이 걸린다. 당신 또한 그렇다. 지금 당신의 나무의 열매가 온전히 무르익지 않은 것은 아직 때가 되지 않았단 뜻이다. 언제가 될 진 모르지만, 당신의 나무에도 필히 열매가 맺고 무르익을 것이다.",
                 "당신을 아프게 하는 것들이 당신에게 상처를 내더라도 당신의 상처는 결국 아문다. 견디지 않아도 된다. 어차피 아물 상처니까."
         );
-
-        getListSentenceDto(Emotion.DISGUST,
-                "모든 사람과의 관계가 좋을 필요는 없다. 하지만 굳이 사람과의 관계가 나쁠 필요도 없다.",
-                "당신이 특정 대상을 혐오하는 만큼, 그 모습을 바라보는 대상은 당신을 혐오할 것이다."
-                );
 
         saveSentence(listSentenceDto);
 

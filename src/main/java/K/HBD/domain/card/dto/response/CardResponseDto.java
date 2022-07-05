@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class CardResponseDto {
     private String sentence;
     private Emotion emotion;
-    private String image;
+    private String imageUrl;
     private String name;
 
 }

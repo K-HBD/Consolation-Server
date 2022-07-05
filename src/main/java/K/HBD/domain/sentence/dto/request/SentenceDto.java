@@ -1,4 +1,4 @@
-package K.HBD.domain.sentence.dto;
+package K.HBD.domain.sentence.dto.request;
 
 import K.HBD.domain.enumType.Emotion;
 import lombok.AllArgsConstructor;

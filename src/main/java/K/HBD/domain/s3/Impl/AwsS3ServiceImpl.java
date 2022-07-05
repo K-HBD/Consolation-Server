@@ -30,44 +30,25 @@ public class AwsS3ServiceImpl implements AwsS3Service {
     private final AmazonS3 amazonS3;
 
     @Override
-    public String updateImageFromS3(MultipartFile file) {
-        String fileName = "";
-        multipartFileIsNullCheck(file);
 
-        String imageName = file.getOriginalFilename();
+    public String uploadFileFromS3(MultipartFile image) {
+        String imageName = "";
+        multipartFileIsNullCheck(image);
 
-        fileName = createFileName(imageName);
+        String imageOriginalName = image.getOriginalFilename();
 
-        ObjectMetadata om = setObjectMetadata(file);
+        imageName = createFileName(imageOriginalName);
 
-        putS3(file, fileName, om);
+        ObjectMetadata om = setObjectMetadata(image);
 
-        return fileName;
+        putS3(image, imageName, om);
+
+        return imageName;
     }
 
-    @Override
-    public void deleteIMageFromS3(ImageDto imageDto) {
-        imageUrlNullCheck(imageDto);
-        deleteS3(imageDto.getImageUrl());
-    }
-
-    private void imageUrlNullCheck(ImageDto imageDto) {
-        if (imageDto.getImageUrl().length() == 0) {
-            throw new CustomException(IMAGE_IS_NULL);
-        }
-    }
-
-    private void deleteS3(String imageName) {
-        try {
-            amazonS3.deleteObject(new DeleteObjectRequest(bucket, imageName));
-        } catch(AmazonServiceException e) {
-            throw new CustomException(AMAZONS_SERVICE_EXCEPTION);
-        }
-    }
-
-    private void putS3(MultipartFile file, String fileName, ObjectMetadata om) {
-        try (InputStream inputStream = file.getInputStream()) {
-            amazonS3.putObject(new PutObjectRequest(bucket, fileName, inputStream, om)
+    private void putS3(MultipartFile image, String imageName, ObjectMetadata om) {
+        try (InputStream inputStream = image.getInputStream()) {
+            amazonS3.putObject(new PutObjectRequest(bucket, imageName, inputStream, om)
                     .withCannedAcl(CannedAccessControlList.PublicRead));
         } catch (IOException e) {
             throw new CustomException(FAILED_SAVE_IMAGE);
@@ -82,22 +63,22 @@ public class AwsS3ServiceImpl implements AwsS3Service {
         }
     }
 
-    private String createFileName(String fileName) {
-        return UUID.randomUUID().toString().concat(getFileExtension(fileName));
+    private String createFileName(String imageName) {
+        return UUID.randomUUID().toString().concat(getFileExtension(imageName));
     }
 
-    private String getFileExtension(String fileName) {
+    private String getFileExtension(String imageName) {
         try {
-            return fileName.substring(fileName.lastIndexOf("."));
+            return imageName.substring(imageName.lastIndexOf("."));
         } catch (StringIndexOutOfBoundsException e) {
             throw new CustomException(OUT_OF_STRING_INDEX);
         }
     }
 
-    private ObjectMetadata setObjectMetadata(MultipartFile file) {
+    private ObjectMetadata setObjectMetadata(MultipartFile image) {
         ObjectMetadata om = new ObjectMetadata();
-        om.setContentLength(file.getSize());
-        om.setContentType(file.getContentType());
+        om.setContentLength(image.getSize());
+        om.setContentType(image.getContentType());
 
         return om;
     }

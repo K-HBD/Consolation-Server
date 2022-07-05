@@ -11,14 +11,14 @@ import java.io.IOException;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("v1/api/s3")
+@RequestMapping("/v1/api/s3")
 public class AwsS3Controller {
 
     private final AwsS3Service awsS3Service;
 
     @PostMapping("/image")
-    public ResponseEntity<String> updateImage(@RequestParam("file") MultipartFile multipartFile) throws IOException {
-        return ResponseEntity.ok(awsS3Service.updateImageFromS3(multipartFile));
+    public ResponseEntity<String> uploadFile(@RequestParam("image") MultipartFile multipartFile) throws IOException {
+        return ResponseEntity.ok(awsS3Service.uploadFileFromS3(multipartFile));
     }
 
     @DeleteMapping("/image")
