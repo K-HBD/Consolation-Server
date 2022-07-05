@@ -1,9 +1,12 @@
 package K.HBD.domain.s3.Impl;
 
+import K.HBD.domain.card.dto.request.ImageDto;
 import K.HBD.domain.s3.AwsS3Service;
 import K.HBD.global.exception.CustomException;
+import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +30,7 @@ public class AwsS3ServiceImpl implements AwsS3Service {
     private final AmazonS3 amazonS3;
 
     @Override
-    public String uploadFileFromS3(MultipartFile file) {
+    public String updateImageFromS3(MultipartFile file) {
         String fileName = "";
         multipartFileIsNullCheck(file);
 
@@ -42,12 +45,34 @@ public class AwsS3ServiceImpl implements AwsS3Service {
         return fileName;
     }
 
+    @Override
+    public void deleteIMageFromS3(ImageDto imageDto) {
+        imageUrlNullCheck(imageDto);
+        deleteS3(imageDto.getImageUrl());
+    }
+
+    private void imageUrlNullCheck(ImageDto imageDto) {
+        if (imageDto.getImageUrl().length() == 0) {
+            throw new CustomException(IMAGE_IS_NULL);
+        }
+    }
+
+    private void deleteS3(String imageName) {
+        try {
+            amazonS3.deleteObject(new DeleteObjectRequest(bucket, imageName));
+        } catch(AmazonServiceException e) {
+            throw new CustomException(AMAZONS_SERVICE_EXCEPTION);
+        }
+    }
+
     private void putS3(MultipartFile file, String fileName, ObjectMetadata om) {
         try (InputStream inputStream = file.getInputStream()) {
             amazonS3.putObject(new PutObjectRequest(bucket, fileName, inputStream, om)
                     .withCannedAcl(CannedAccessControlList.PublicRead));
         } catch (IOException e) {
             throw new CustomException(FAILED_SAVE_IMAGE);
+        } catch (AmazonServiceException e) {
+            throw new CustomException(AMAZONS_SERVICE_EXCEPTION);
         }
     }
 
