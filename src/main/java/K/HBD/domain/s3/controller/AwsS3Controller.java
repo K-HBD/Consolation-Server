@@ -11,7 +11,7 @@ import java.io.IOException;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("v1/api/s3")
+@RequestMapping("/v1/api/s3")
 public class AwsS3Controller {
 
     private final AwsS3Service awsS3Service;
