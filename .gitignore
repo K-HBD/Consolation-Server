@@ -4,8 +4,6 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
-src/main/resources
-src/test/resources
 src/main/java/K/HBD/global/config/sentence
 ### STS ###
 .apt_generated
