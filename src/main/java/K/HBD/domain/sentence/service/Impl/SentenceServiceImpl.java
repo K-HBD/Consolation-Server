@@ -1,7 +1,7 @@
 package K.HBD.domain.sentence.service.Impl;
 
 import K.HBD.domain.sentence.Sentence;
-import K.HBD.domain.sentence.dto.SentenceDto;
+import K.HBD.domain.sentence.dto.request.SentenceDto;
 import K.HBD.domain.sentence.repository.SentenceRepository;
 import K.HBD.domain.sentence.service.SentenceService;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,6 @@
 package K.HBD.domain.sentence.controller;
 
-import K.HBD.domain.sentence.dto.SentenceDto;
+import K.HBD.domain.sentence.dto.request.SentenceDto;
 import K.HBD.domain.sentence.service.SentenceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/sentence")
+@RequestMapping("/v1/api/sentence")
 public class SentenceController {
     private final SentenceService sentenceService;
 

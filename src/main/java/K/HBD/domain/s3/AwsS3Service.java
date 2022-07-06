@@ -6,7 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 public interface AwsS3Service {
-    String updateImageFromS3(MultipartFile multipartFile) throws IOException;
+    String uploadImageFromS3(MultipartFile multipartFile) throws IOException;
 
     void deleteIMageFromS3(ImageDto imageDto);
 }
