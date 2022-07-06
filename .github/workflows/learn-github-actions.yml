@@ -36,7 +36,7 @@ jobs:
           spring.datasource.url: ${{ secrets.RDS_HOST }}
           spring.datasource.username: ${{ secrets.RDS_USERNAME }}
           spring.datasource.password: ${{ secrets.RDS_PASSWORD }}
-          override.value: 'application.yml'
+          override.value: ${{ SECRET_APPLICATION_YML }}
 
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
