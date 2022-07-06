@@ -1,0 +1,14 @@
+spring:
+  servlet:
+    multipart:
+      max-file-size: 20MB
+
+cloud:
+  aws:
+    credentials:
+      access-key: AKIAT2YS6CADUVGCZJEH
+      secret-key: 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
+    region:
+      static: ap-northeast-2
+
+    test-img-url: https://consolationbucket.s3.ap-northeast-2.amazonaws.com/b7db6140-7978-465b-be05-f1f2fe058db4.png
