@@ -17,6 +17,9 @@ jobs:
           distribution: 'adopt'
           cache: gradle
 
+      - name: Github Action Script Start Test
+        run: echo Hello, world!
+
       - name: Create application.yml
         run: |
           touch ./src/main/resources/application.yml
@@ -26,9 +29,6 @@ jobs:
           mkdir ./src/test/resources
           touch ./src/test/resources/application.yml
           echo "${{ secrets.SECRET_APPLICATION_TEST_YML }}" >> ./src/test/resources/application.yml
-
-      - name: Github Action Script Start Test
-        run: echo Hello, world!
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
