@@ -17,6 +17,16 @@ jobs:
           distribution: 'adopt'
           cache: gradle
 
+      - name: Create application.yml
+        run: |
+          touch ./src/main/resources/application.yml
+          echo "${{ secrets.SECRET_APPLICATION_YML }}" >> ./src/main/resources/application.yml
+      - name: Create application-test.yml
+        run: |
+          mkdir ./src/test/resources
+          touch ./src/test/resources/application.yml
+          echo "${{ secrets.SECRET_APPLICATION_TEST_YML }}" >> ./src/test/resources/application.yml
+
       - name: Github Action Script Start Test
         run: echo Hello, world!
 
