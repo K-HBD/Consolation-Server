@@ -1,8 +1,7 @@
 name: Java CI with Gradle
 
 on:
-  pull_request:
-    branches: [ feature/s3, develop ]
+  [ push, pull_request]
 
 jobs:
   build:
@@ -26,4 +25,3 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew clean build
-
