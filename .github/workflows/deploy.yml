@@ -1,7 +1,9 @@
 name: CI-CD
 
 on:
-  [ push, pull_request]
+  push:
+    branches:
+      - develop
 
 env:
   S3_BUCKET_NAME: consolation-prod-server-s3
