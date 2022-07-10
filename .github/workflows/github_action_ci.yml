@@ -20,13 +20,6 @@ jobs:
       - name: Github Action Script Start Test
         run: echo Hello, world!
 
-      - name: Create application.yml
-        run: |
-          cd C:/Users/s2008/Consolation-Server/src/main/resources
-          touch C:/Users/s2008/Consolation-Server/src/main/resources/application.yml
-          echo "${{ secrets.SECRET_APPLICATION_YML }}" > C:/Users/s2008/Consolation-Server/src/main/resources/application.yml
-        shell: bash
-
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
