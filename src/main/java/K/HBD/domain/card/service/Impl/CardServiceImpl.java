@@ -33,7 +33,7 @@ public class CardServiceImpl implements CardService {
     @Transactional
     public CardResponseDto responseCard(CardDto card) {
         EmotionDto emotion = getEmotionFromModel(card.getImage()); // AI 모델 서버에서 가져올 임시 감정
-        ddfd
+
         return CardResponseDto.builder()
                 .sentence(sentenceRepository.findLetterByEmotion(emotion.getEmotion()))
                 .imageUrl(BASE_URI + card.getImage())
