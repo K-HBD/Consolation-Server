@@ -13,6 +13,6 @@ permissions:
 
 hooks:
   ApplicationStart:
-    - location: scripts/gh_deploy.sh
+    - location: scripts/consolation_deploy.sh
       timeout: 60
       runas: ubuntu
