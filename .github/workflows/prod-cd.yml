@@ -23,12 +23,10 @@ jobs:
             distribution: 'temurin'
             cache: gradle
 
-      - name: Set yam file
-        uses: microsoft/variable-substitution@v1
-        with:
-          files: .\src\main\resources\application.yml
-        env:
-          override.value: ${{ secrets.DI_FROM_SECRET }}
+      - name: Create application.yml
+        run: |
+          touch .\src\main\resources\application.yml
+          echo "${{ secrets.APPLICATION_YML }}" >> .\src\main\resources\application.yml
 
       - name: Build with Gradle
         run: ./gradlew build
