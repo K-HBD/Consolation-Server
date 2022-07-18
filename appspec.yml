@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source:  /
-    destination: /home/ec2-user/github_action
+    destination: /home/ec2-user/consolation
     overwrite: yes
 
 permissions:
@@ -13,6 +13,6 @@ permissions:
 
 hooks:
   ApplicationStart:
-    - location: scripts/gh_deploy.sh
+    - location: scripts/consolation_deploy.sh
       timeout: 60
-      runas: ubuntu
+      runas: ec2-user
