@@ -4,11 +4,6 @@ on:
   push:
     branches: [ main, feature/ci ]
 
-env:
-  S3_BUCKET_NAME: consolation-prod-server-s3
-  CODE_DEPLOY_APPLICATION_NAME: consolation-code-deploy
-  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: consolation-server
-
 jobs:
   build:
 
@@ -28,9 +23,11 @@ jobs:
           touch .\src\main\resources\application.yml
           echo "${{ secrets.APPLICATION_YML }}" >> .\src\main\resources\application.yml
 
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
       - name: Build with Gradle
-        run: ./gradlew build
-        shell: bash
+        run: ./gradlew clean build -x test
 
       - name: Make zip file
         run: zip -r ./$GITHUB_SHA.zip .
@@ -49,6 +46,6 @@ jobs:
         run: |
           aws deploy create-deployment \
           --deployment-config-name CodeDeployDefault.AllAtOnce \
-          --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
-          --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
+          --application-name consolation-code-deploy \
+          --deployment-group-name consolation-server \
           --s3-location bucket=consolation-prod-server-s3,bundleType=zip,key=$GITHUB_SHA.zip
