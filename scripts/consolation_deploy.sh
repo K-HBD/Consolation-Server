@@ -27,7 +27,7 @@ fi
 
 DEPLOY_JAR=$DEPLOY_PATH$JAR_NAME
 echo "> DEPLOY_JAR 배포" >> $DEPLOY_LOG_PATH
-java -jar $DEPLOY_JAR &
+java -jar $DEPLOY_JAR >> /dev/null 2> /dev/null &
 
 sleep 3
 
