@@ -26,7 +26,7 @@ else
 fi
 
 DEPLOY_JAR=$DEPLOY_PATH$JAR_NAME
-echo "> DEPLOY_JAR 배포" >> $DEPLOY_LOG_PATH
+echo "> DEPLOY_JAR 배포 $(%c + %c)" >> $DEPLOY_LOG_PATH, DEPLOY_JAR
 nohup java -jar $DEPLOY_JAR --server.port=8081 >> "/home/ec2-user/$PROJECT_NAME/application.log" 2> /dev/null &
 
 sleep 3
